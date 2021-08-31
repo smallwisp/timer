@@ -1,6 +1,8 @@
 window.addEventListener('DOMContentLoaded', () => {
    'use strict';
 
+   const screenWidth = window.innerWidth;
+   console.log('screenWidth:', screenWidth);
    // Timer
    function countTimer(deadLine) {
       let timerHours = document.querySelector('#timer-hours'),
@@ -24,7 +26,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
       let updateClock = setInterval(() => {
             let timer = getTimeRemaining();
-
             if ((timer.hours ) < 10) {
                timerHours.textContent = '0' + timer.hours;
             } else {
@@ -65,14 +66,47 @@ window.addEventListener('DOMContentLoaded', () => {
       const menuItems  = document.querySelectorAll('ul>li');
 
       const handlerMenu = () => {
-         menu.classList.toggle('active-menu');
+         menu.style.transform = `translate(-100%)`;
       };
       
-      /* const handlerMenuJS = () => {
-         
-      } */
+      function handlerMenuJS({timing, draw, duration}) {
+         let start = performance.now();
 
-      btnMenu.addEventListener('click', handlerMenu);
+         /* if (screenWidth >= 768) {
+            
+         } */
+
+         requestAnimationFrame(function animate(time) {
+         // timeFraction изменяется от 0 до 1
+         let timeFraction = (time - start) / duration;
+         if (timeFraction > 1) timeFraction = 1;
+
+         // вычисление текущего состояния анимации
+         let progress = timing(timeFraction);
+
+         draw(progress); // отрисовать её
+
+         if (timeFraction < 1) {
+            requestAnimationFrame(animate);
+         }
+      })
+   };
+   
+   let animate = {
+      duration: 1000,
+      timing: function (timeFraction) {
+         return timeFraction;
+      },
+      draw: function (progress) {
+         menu.style.transform = `translate(${progress * 100}%)`;
+      }
+   };
+   
+      btnMenu.addEventListener('click', function() {
+         if (screenWidth >= 768) {
+            handlerMenuJS(animate);
+         };
+      });
 
       closeBtn.addEventListener('click', handlerMenu);
       
