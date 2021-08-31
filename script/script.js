@@ -1,6 +1,14 @@
 window.addEventListener('DOMContentLoaded', () => {
    'use strict';
 
+   /* let timerHours = document.querySelector('#timer-hours'),
+          timerMinutes = document.querySelector('#timer-minutes'),
+          timerSeconds = document.querySelector('#timer-seconds');
+
+timerHours.textContent = '';
+timerMinutes.textContent = '';
+timerSeconds.textContent = ''; */
+
    const screenWidth = window.innerWidth;
    console.log('screenWidth:', screenWidth);
    // Timer
@@ -24,8 +32,8 @@ window.addEventListener('DOMContentLoaded', () => {
             };
       }
 
-      let updateClock = setInterval(() => {
-            let timer = getTimeRemaining();
+      function setClock() {
+         let timer = getTimeRemaining();
             if ((timer.hours ) < 10) {
                timerHours.textContent = '0' + timer.hours;
             } else {
@@ -41,8 +49,11 @@ window.addEventListener('DOMContentLoaded', () => {
             } else {
                timerSeconds.textContent = timer.seconds;
             };
-           
-         }, 1000);
+      };
+
+      setClock();
+
+      let updateClock = setInterval(setClock, 1000);
       
       function checkDate(time) {
          if (time.timeRemaining < 0) {
