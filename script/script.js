@@ -58,7 +58,7 @@ window.addEventListener('DOMContentLoaded', () => {
       checkDate(getTimeRemaining());
 
    };
-   countTimer('01 september 2021');
+   countTimer('02 september 2021');
 
    // Меню
    const toggleMenu = () => {
@@ -105,11 +105,22 @@ window.addEventListener('DOMContentLoaded', () => {
       }); */
 
       document.addEventListener('click', (event) => {
-         let target = event.target;
-         target = target.closest('.menu');
-         console.log(target);
-         if ((screenWidth >= 768) && (target)) {
+         let targetBtnMenu = event.target;
+         let targetMenu = event.target;
+         let targetCloseBtn = event.target;
+         let targetUlList = event.target;
+         targetBtnMenu = targetBtnMenu.closest('.menu');
+         targetMenu = targetMenu.closest('menu');
+         targetCloseBtn = targetCloseBtn.classList.contains('close-btn');
+         targetUlList = targetUlList.closest('ul');
+         console.log(targetCloseBtn);
+         console.log(targetMenu);
+         if ((screenWidth >= 768) && (targetBtnMenu)) {
             handlerMenuJS(animate);
+         } else if (targetCloseBtn || targetUlList) {
+            handlerMenu();
+         } else if (targetMenu) {
+            return;
          } else {
             handlerMenu();
          }
