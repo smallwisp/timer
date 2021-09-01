@@ -98,15 +98,9 @@ window.addEventListener('DOMContentLoaded', () => {
       }
    };
    
-      /* btnMenu.addEventListener('click', function() {
-         if (screenWidth >= 768) {
-            handlerMenuJS(animate);
-         };
-      }); */
-
       document.addEventListener('click', (event) => {
          let target = event.target;
-         target = target.closest('.menu');
+         target = target.closest('.menu') || target.closest('menu');
          console.log(target);
          if ((screenWidth >= 768) && (target)) {
             handlerMenuJS(animate);
