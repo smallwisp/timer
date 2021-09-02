@@ -58,7 +58,7 @@ window.addEventListener('DOMContentLoaded', () => {
       checkDate(getTimeRemaining());
 
    };
-   countTimer('02 september 2021');
+   countTimer('04 september 2021');
 
    // Меню
    const toggleMenu = () => {
