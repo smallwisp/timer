@@ -321,6 +321,69 @@ window.addEventListener('DOMContentLoaded', () => {
 
    changePhoto();
 
+   // block calc
+
+   const checkInputsCalcBlock = () => {
+      const calcBlock = document.querySelector('.calc-block');
+      const calcItem = calcBlock.querySelectorAll('.calc-item')[2];
+      calcBlock.addEventListener('input', (event) => {
+         event.target.value = event.target.value.replace(/\D/g, '');
+      })
+   };
+
+   checkInputsCalcBlock();
+
+   // block connect
+
+   const checkInputsConnectBlock = () => {
+      const connect = document.querySelector('.connect');
+      const nameForm = document.getElementById('form2-name');
+      const emailForm = document.getElementById('form2-email');
+      const phoneForm = document.getElementById('form2-phone');
+      const messageForm = document.getElementById('form2-message');
+
+      connect.addEventListener('input', (event) => {
+         if ((event.target.id == 'form2-name') || (event.target.id == 'form2-message')) {
+            let nameValue = event.target.value;
+            // event.target.value = nameValue.match(/[-\W\s]/gi).join('');
+            event.target.value = nameValue.replace(/[\=\%/\\&\?\,\'\;:!+!@#\$\^\*)(\w]/gi, '');
+         } else if (event.target.id == 'form2-email') {
+            event.target.value = event.target.value.replace(/[а-яА-Я\d;:\?\,)(#\$\%^\&\}{\[\]\^\"\\\|\/]/gi, '');
+         } else {
+            event.target.value = event.target.value.replace(/[а-яА-Яa-zA-Z;\=\.@:\?\,#\$\%^\&\}{\[\]\^\"\\\|\/\_]/gi, '');
+
+         }
+      });
+
+      const deleteHyphenSpace = (str) => {
+         str = str.trim();
+         str = str.replace(/ +/g, ' ');
+         str = str.replace(/\-+/g, '\-');
+         str = str.replace(/^-/g, '');
+         str = str.replace(/-$/g, '');
+         return str;
+      };
+
+      nameForm.addEventListener('blur', (event) => {
+         let nameValue = event.target.value;
+         event.target.value = deleteHyphenSpace(nameValue)[0].toUpperCase() + deleteHyphenSpace(nameValue).slice(1, deleteHyphenSpace(nameValue).length).toLowerCase();
+      });
+
+      emailForm.addEventListener('blur', (event) => {
+         event.target.value = deleteHyphenSpace(event.target.value);
+      })
+      phoneForm.addEventListener('blur', (event) => {
+         event.target.value = deleteHyphenSpace(event.target.value);
+      })
+      messageForm.addEventListener('blur', (event) => {
+         event.target.value = deleteHyphenSpace(event.target.value);
+      })
+
+
+   };
+
+   checkInputsConnectBlock();
+
    
 
 })
