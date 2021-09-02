@@ -71,24 +71,26 @@ window.addEventListener('DOMContentLoaded', () => {
          menu.style.transform = `translate(-100%)`;
       };
       
-      function handlerMenuJS({timing, draw, duration}) {
-         let start = performance.now();
-
-         requestAnimationFrame(function animate(time) {
-         let timeFraction = (time - start) / duration;
-         if (timeFraction > 1) timeFraction = 1;
-
-         let progress = timing(timeFraction);
-
-         draw(progress); 
-
-         if (timeFraction < 1) {
-            requestAnimationFrame(animate);
+      function handlerMenuJS({timing, draw, duration, flag}) {
+         if (flag) {
+            let start = performance.now();
+            requestAnimationFrame(function animate(time) {
+               let timeFraction = (time - start) / duration;
+               if (timeFraction > 1) timeFraction = 1;
+   
+               let progress = timing(timeFraction);
+   
+               draw(progress); 
+   
+               if (timeFraction < 1) {
+                  requestAnimationFrame(animate);
+               }
+            });
          }
-      })
    };
    
    let animate = {
+      flag : true,
       duration: 1000,
       timing: function (timeFraction) {
          return timeFraction;
@@ -99,6 +101,7 @@ window.addEventListener('DOMContentLoaded', () => {
    };
    
       document.addEventListener('click', (event) => {
+
          let targetBtnMenu = event.target;
          let targetMenu = event.target;
          let targetCloseBtn = event.target;
@@ -109,11 +112,14 @@ window.addEventListener('DOMContentLoaded', () => {
          targetUlList = targetUlList.closest('ul');
          if ((screenWidth >= 768) && (targetBtnMenu)) {
             handlerMenuJS(animate);
+            animate.flag = false;
          } else if (targetCloseBtn || targetUlList) {
+            animate.flag = true;
             handlerMenu();
          } else if (targetMenu) {
             return;
          } else {
+            animate.flag = true;
             handlerMenu();
          }
 
