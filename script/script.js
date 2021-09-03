@@ -402,7 +402,7 @@ window.addEventListener('DOMContentLoaded', () => {
          } 
 
          if (typeValue && squareValue) {
-            total = price * typeValue * squareValue * countValue * dayValue;
+            total = Math.round(price * typeValue * squareValue * countValue * dayValue);
          } 
 
          totalValue.textContent = total;
@@ -410,14 +410,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
       calcBlock.addEventListener('change', (event) => {
          const target = event.target;
-
-         /* if (target.matches('.calc-type') || target.matches('.calc-square') || target.matches('.calc-day') || target.matches('.calc-count')) {
-
-         } */
-
-         /* if (target === calcType || target === calcSquare || target === calcDay || target === calcCount) {
-            
-         } */
 
          if (target.matches('select') || target.matches('input')) {
             countSum();
