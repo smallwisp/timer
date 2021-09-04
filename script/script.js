@@ -1,6 +1,5 @@
 window.addEventListener('DOMContentLoaded', () => {
    'use strict';
-
    const screenWidth = window.innerWidth;
    // Timer
    function countTimer(deadLine) {
@@ -71,24 +70,27 @@ window.addEventListener('DOMContentLoaded', () => {
          menu.style.transform = `translate(-100%)`;
       };
       
-      function handlerMenuJS({timing, draw, duration}) {
-         let start = performance.now();
+      function handlerMenuJS({timing, draw, duration, flag}) {
+         if (flag) {
+            let start = performance.now();
 
-         requestAnimationFrame(function animate(time) {
-         let timeFraction = (time - start) / duration;
-         if (timeFraction > 1) timeFraction = 1;
+            requestAnimationFrame(function animate(time) {
+               let timeFraction = (time - start) / duration;
+               if (timeFraction > 1) timeFraction = 1;
 
-         let progress = timing(timeFraction);
+               let progress = timing(timeFraction);
 
-         draw(progress); 
+               draw(progress); 
 
-         if (timeFraction < 1) {
-            requestAnimationFrame(animate);
+               if (timeFraction < 1) {
+                  requestAnimationFrame(animate);
+               }
+            });
          }
-      })
    };
    
    let animate = {
+      flag : true,
       duration: 1000,
       timing: function (timeFraction) {
          return timeFraction;
@@ -109,11 +111,14 @@ window.addEventListener('DOMContentLoaded', () => {
          targetUlList = targetUlList.closest('ul');
          if ((screenWidth >= 768) && (targetBtnMenu)) {
             handlerMenuJS(animate);
+            animate.flag = false;
          } else if (targetCloseBtn || targetUlList) {
+            animate.flag = true;
             handlerMenu();
          } else if (targetMenu) {
             return;
          } else {
+            animate.flag = true;
             handlerMenu();
          }
 
@@ -418,6 +423,19 @@ window.addEventListener('DOMContentLoaded', () => {
    };
 
    calc(100);
+
+   // send ajax form
+
+   const sendForm = () => {
+      const errorMessage = 'Что-то пошло не так(',
+            loadMessage = 'Загрузка...',
+            successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+
+      const form = document.getElementById('form');
+      console.log(form);
+
+   };
+   sendForm();
    
    
 
