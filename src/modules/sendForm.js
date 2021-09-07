@@ -1,7 +1,8 @@
 const sendForm = () => {
         const errorMessage = 'Что-то пошло не так(',
             loadMessage = 'Загрузка...',
-            successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+            successMessage = 'Спасибо! Мы скоро с вами свяжемся!',
+            popup = document.querySelector('.popup');
 
         const forms = document.querySelectorAll('form');
 
@@ -34,7 +35,15 @@ const sendForm = () => {
                 inputs.forEach(i => {
                     i.value = '';
                 });
+                
+                if ((item.id === 'form3') && statusMessage) {
+                    setTimeout(() => {
+                        popup.style.display = 'none';
+                        
+                    }, 2000);
+                };
             });
+
 
             const postData = formData => fetch('./server.php', {
                 method: 'POST',
