@@ -1,11 +1,14 @@
 const togglePopUp = () => {
         const popup = document.querySelector('.popup');
         const popupBtn = document.querySelectorAll('.popup-btn');
-        const popupClose = document.querySelector('.popup-close');
+        const popupContent = document.querySelector('.popup-content');
 
         popupBtn.forEach(elem => {
             elem.addEventListener('click', () => {
                 popup.style.display = 'block';
+                popupContent.style.left = '50%'
+                popupContent.style.top = '50%';
+                popupContent.style.transform = 'translate(-50%, -50%)';
             });
         });
 
