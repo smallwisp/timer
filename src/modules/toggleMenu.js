@@ -52,7 +52,7 @@ const toggleMenu = () => {
             targetBtnMenu = targetBtnMenu.closest('.menu');
             targetMenu = targetMenu.closest('menu');
             targetCloseBtn = targetCloseBtn.classList.contains('close-btn');
-            targetUlList = targetUlList.closest('ul');
+            targetUlList = targetUlList.closest('a');
             if ((screenWidth >= 768) && (targetBtnMenu)) {
                 handlerMenuJS(animate);
                 animate.flag = false;

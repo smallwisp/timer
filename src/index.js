@@ -9,6 +9,8 @@ import changePhoto from './modules/changePhoto';
 import checkInputsAll from './modules/checkInputsAll';
 import calc from './modules/calc';
 import sendForm from './modules/sendForm';
+
+
 // Timer
 countTimer('09 september 2021');
 // Меню
