@@ -1,3 +1,5 @@
+import maskPhone from './maskPhone';
+
 const checkInputsAll = () => {
 
         const deleteHyphenSpace = str => {
@@ -12,14 +14,14 @@ const checkInputsAll = () => {
         const inputsAll = document.querySelectorAll('input');
 
         inputsAll.forEach(item => {
+            item.setAttribute('required', true);
             item.addEventListener('input', event => {
                 if ((event.target.id === 'form1-name') || (event.target.id === 'form2-name') || (event.target.id === 'form3-name')) {
-
+                    
                     const nameValue = event.target.value;
                     event.target.value = nameValue.replace(/[;\+\>\<\*\!\=\.@:\?\,#\$\%^\&\}{\[\]\^\"\\\|\/\_)(\w]/gi, '');
-
+                    
                 } else if ((event.target.id === 'form1-email') || (event.target.id === 'form2-email') || (event.target.id === 'form3-email')) {
-
                     event.target.value = event.target.value.replace(/[а-яА-Я;:\?\,)(#\$\%^\&\}{\[\]\^\"\\\|\/]/gi, '');
 
                 } else if (event.target.classList === 'calc-item') {
@@ -29,7 +31,8 @@ const checkInputsAll = () => {
                 } else if (event.target.id === 'form2-message') {
                     event.target.value = event.target.value.replace(/[a-zA-Z)(#@\=\$\>\<\*\%\&\}{\[\]\^\\\|\/]/gi, '');
                 } else {
-                    event.target.value = event.target.value.replace(/[а-яА-Яa-zA-Z;\>\<\*)(\=\.@:\?\,#\$\%^\&\}{\[\]\^\"\\\|\/\_]/gi, '');
+                    // event.target.value = event.target.value.replace(/[а-яА-Яa-zA-Z;\>\<\*)(\=\.@:\?\,#\$\%^\&\}{\[\]\^\"\\\|\/\_]/gi, '');
+                    maskPhone('#' + event.target.id);
                 }
             });
 
@@ -46,6 +49,7 @@ const checkInputsAll = () => {
             });
 
         });
+
 
     };
 

@@ -10,9 +10,8 @@ import checkInputsAll from './modules/checkInputsAll';
 import calc from './modules/calc';
 import sendForm from './modules/sendForm';
 
-
 // Timer
-countTimer('09 september 2021');
+countTimer('10 september 2021');
 // Меню
 toggleMenu();
 // popup
