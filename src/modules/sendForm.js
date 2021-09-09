@@ -24,10 +24,15 @@ const sendForm = () => {
                 } else {
                     event.preventDefault();
                     item.appendChild(statusMessage);
-                    statusMessage.textContent = loadMessage;
                     const formData = new FormData(item);
+                    let body = {};
+                    formData.forEach((val, key) => {
+                        body[key] = val;
+                    });
+
+                    statusMessage.textContent = loadMessage;
     
-                    postData(formData).then(response => {
+                    postData(body).then(response => {
                         if (response.status !== 200) {
                             throw new Error('status network not 200!');
                         }
@@ -66,12 +71,12 @@ const sendForm = () => {
             });
 
 
-            const postData = formData => fetch('./server.php', {
+            const postData = body => fetch('./server.php', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json'
                 },
-                body: formData,
+                body: JSON.stringify(body),
                 credentials: 'include'
             });
         });
