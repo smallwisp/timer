@@ -1,6 +1,4 @@
 const toggleMenu = () => {
-        const  menu = document.querySelector('menu'); // тег меню, в нем закрытие и список
-
         const btnMenu = document.querySelector('.menu');
         const menu = document.querySelector('menu');
         const closeBtn = document.querySelector('.close-btn');
